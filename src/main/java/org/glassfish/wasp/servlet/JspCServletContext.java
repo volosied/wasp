@@ -595,6 +595,7 @@ public class JspCServletContext implements ServletContext {
             String pageEncoding = null;
             String scriptingInvalid = null;
             String elIgnored = null;
+            String errorOnELNotFound = null;
             String isXml = null;
             ArrayList<String> includePrelude = new ArrayList<>();
             ArrayList<String> includeCoda = new ArrayList<>();
@@ -621,7 +622,9 @@ public class JspCServletContext implements ServletContext {
                     isXml = element.getBody();
                 } else if ("el-ignored".equals(tname)) {
                     elIgnored = element.getBody();
-                } else if ("scripting-invalid".equals(tname)) {
+                } else if ("error-on-el-not-found".equals(tname)) {
+                    errorOnELNotFound = element.getBody();
+                }else if ("scripting-invalid".equals(tname)) {
                     scriptingInvalid = element.getBody();
                 } else if ("include-prelude".equals(tname)) {
                     includePrelude.add(element.getBody());
@@ -639,7 +642,7 @@ public class JspCServletContext implements ServletContext {
                     errorOnUndeclaredNamespace = element.getBody();
                 }
             }
-            jspPropertyGroups.add(new JspPropertyGroupDescriptorImpl(urlPatterns, isXml, elIgnored, scriptingInvalid, trimSpaces, poundAllowed, pageEncoding,
+            jspPropertyGroups.add(new JspPropertyGroupDescriptorImpl(urlPatterns, isXml, elIgnored, errorOnELNotFound, scriptingInvalid, trimSpaces, poundAllowed, pageEncoding,
                     includePrelude, includeCoda, defaultContentType, buffer, errorOnUndeclaredNamespace));
         }
 
@@ -650,6 +653,7 @@ public class JspCServletContext implements ServletContext {
         Collection<String> urlPatterns;
         String isXml;
         String elIgnored;
+        String errorOnELNotFound;
         String scriptingInvalid;
         String trimSpaces;
         String poundAllowed;
@@ -660,12 +664,13 @@ public class JspCServletContext implements ServletContext {
         String buffer;
         String errorOnUndeclaredNamespace;
 
-        JspPropertyGroupDescriptorImpl(Collection<String> urlPatterns, String isXml, String elIgnored, String scriptingInvalid, String trimSpaces,
+        JspPropertyGroupDescriptorImpl(Collection<String> urlPatterns, String isXml, String elIgnored, String errorOnELNotFound, String scriptingInvalid, String trimSpaces,
                 String poundAllowed, String pageEncoding, Collection<String> includePrelude, Collection<String> includeCoda, String defaultContentType,
                 String buffer, String errorOnUndeclaredNamespace) {
             this.urlPatterns = urlPatterns;
             this.isXml = isXml;
             this.elIgnored = elIgnored;
+            this.errorOnELNotFound = errorOnELNotFound;
             this.scriptingInvalid = scriptingInvalid;
             this.trimSpaces = trimSpaces;
             this.poundAllowed = poundAllowed;
@@ -685,6 +690,11 @@ public class JspCServletContext implements ServletContext {
         @Override
         public String getElIgnored() {
             return elIgnored;
+        }
+
+        @Override
+        public String getErrorOnELNotFound() {
+            return errorOnELNotFound;
         }
 
         @Override
@@ -735,12 +745,6 @@ public class JspCServletContext implements ServletContext {
         @Override
         public String getErrorOnUndeclaredNamespace() {
             return errorOnUndeclaredNamespace;
-        }
-
-        @Override
-        public String getErrorOnELNotFound() {
-            // TODO Implement!
-            return null;
         }
     }
 

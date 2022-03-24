@@ -46,6 +46,7 @@ public class JspConfig {
 
     private String defaultIsXml = null; // unspecified
     private String defaultIsELIgnored = null; // unspecified
+    private String defaultErrorOnELNotFound = null; // unspecified
     private String defaultIsScriptingInvalid = "false";
     private String defaultTrimSpaces = "false";
     private String defaultPoundAllowed = "false";
@@ -70,6 +71,7 @@ public class JspConfig {
             String pageEncoding = jpg.getPageEncoding();
             String scriptingInvalid = jpg.getScriptingInvalid();
             String elIgnored = jpg.getElIgnored();
+            String errorOnELNotFound = jpg.getErrorOnELNotFound();
             String isXml = jpg.getIsXml();
             String trimSpaces = jpg.getTrimDirectiveWhitespaces();
             String poundAllowed = jpg.getDeferredSyntaxAllowedAsLiteral();
@@ -121,7 +123,7 @@ public class JspConfig {
                     }
                 }
 
-                JspProperty property = new JspProperty(isXml, elIgnored, scriptingInvalid, trimSpaces, poundAllowed, pageEncoding, includePrelude, includeCoda,
+                JspProperty property = new JspProperty(isXml, elIgnored, errorOnELNotFound, scriptingInvalid, trimSpaces, poundAllowed, pageEncoding, includePrelude, includeCoda,
                         defaultContentType, buffer, errorOnUndeclaredNamespace);
                 JspPropertyGroup propertyGroup = new JspPropertyGroup(path, extension, property);
 
@@ -140,7 +142,7 @@ public class JspConfig {
                 defaultIsELIgnored = "true";
             }
 
-            defaultJspProperty = new JspProperty(defaultIsXml, defaultIsELIgnored, defaultIsScriptingInvalid, defaultTrimSpaces, defaultPoundAllowed, null,
+            defaultJspProperty = new JspProperty(defaultIsXml, defaultIsELIgnored, defaultErrorOnELNotFound, defaultIsScriptingInvalid, defaultTrimSpaces, defaultPoundAllowed, null,
                     null, null, null, null, defaultErrorOnUndeclaredNamespace);
             initialized = true;
         }
@@ -210,6 +212,7 @@ public class JspConfig {
 
         JspPropertyGroup isXmlMatch = null;
         JspPropertyGroup elIgnoredMatch = null;
+        JspPropertyGroup errorOnELNotFoundMatch = null;
         JspPropertyGroup scriptingInvalidMatch = null;
         JspPropertyGroup trimSpacesMatch = null;
         JspPropertyGroup poundAllowedMatch = null;
@@ -260,6 +263,9 @@ public class JspConfig {
             if (jp.isELIgnored() != null) {
                 elIgnoredMatch = selectProperty(elIgnoredMatch, jpg);
             }
+            if (jp.getErrorOnELNotFound() != null) {
+                errorOnELNotFoundMatch = selectProperty(errorOnELNotFoundMatch, jpg);
+            }
             if (jp.isScriptingInvalid() != null) {
                 scriptingInvalidMatch = selectProperty(scriptingInvalidMatch, jpg);
             }
@@ -285,6 +291,7 @@ public class JspConfig {
 
         String isXml = defaultIsXml;
         String isELIgnored = defaultIsELIgnored;
+        String isErrorOnELNotFound = defaultErrorOnELNotFound;
         String isScriptingInvalid = defaultIsScriptingInvalid;
         String trimSpaces = defaultTrimSpaces;
         String poundAllowed = defaultPoundAllowed;
@@ -298,6 +305,9 @@ public class JspConfig {
         }
         if (elIgnoredMatch != null) {
             isELIgnored = elIgnoredMatch.getJspProperty().isELIgnored();
+        }
+        if (errorOnELNotFoundMatch != null) {
+            isErrorOnELNotFound = errorOnELNotFoundMatch.getJspProperty().getErrorOnELNotFound();
         }
         if (scriptingInvalidMatch != null) {
             isScriptingInvalid = scriptingInvalidMatch.getJspProperty().isScriptingInvalid();
@@ -321,7 +331,7 @@ public class JspConfig {
             errorOnUndeclaredNamespace = errorOnUndeclaredNamespaceMatch.getJspProperty().errorOnUndeclaredNamespace();
         }
 
-        return new JspProperty(isXml, isELIgnored, isScriptingInvalid, trimSpaces, poundAllowed, pageEncoding, includePreludes, includeCodas,
+        return new JspProperty(isXml, isELIgnored, isErrorOnELNotFound, isScriptingInvalid, trimSpaces, poundAllowed, pageEncoding, includePreludes, includeCodas,
                 defaultContentType, buffer, errorOnUndeclaredNamespace);
     }
 

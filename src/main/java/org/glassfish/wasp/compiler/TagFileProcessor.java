@@ -57,7 +57,8 @@ class TagFileProcessor {
                 new JspUtil.ValidAttribute("body-content"), new JspUtil.ValidAttribute("dynamic-attributes"), new JspUtil.ValidAttribute("small-icon"),
                 new JspUtil.ValidAttribute("large-icon"), new JspUtil.ValidAttribute("description"), new JspUtil.ValidAttribute("example"),
                 new JspUtil.ValidAttribute("pageEncoding"), new JspUtil.ValidAttribute("language"), new JspUtil.ValidAttribute("import"),
-                new JspUtil.ValidAttribute("isELIgnored"), new JspUtil.ValidAttribute("deferredSyntaxAllowedAsLiteral"),
+                new JspUtil.ValidAttribute("isELIgnored"), new JspUtil.ValidAttribute("errorOnELNotFound"),
+                new JspUtil.ValidAttribute("deferredSyntaxAllowedAsLiteral"),
                 new JspUtil.ValidAttribute("trimDirectiveWhitespaces") };
 
         private static final JspUtil.ValidAttribute[] attributeDirectiveAttrs = { new JspUtil.ValidAttribute("name", true),

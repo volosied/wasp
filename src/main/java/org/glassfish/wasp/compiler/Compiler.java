@@ -124,6 +124,7 @@ public class Compiler {
          * those properties.
          */
         pageInfo.setELIgnored(JspUtil.booleanValue(jspProperty.isELIgnored()));
+        pageInfo.setErrorOnELNotFound(JspUtil.booleanValue(jspProperty.getErrorOnELNotFound()));
         pageInfo.setScriptingInvalid(JspUtil.booleanValue(jspProperty.isScriptingInvalid()));
         pageInfo.setTrimDirectiveWhitespaces(JspUtil.booleanValue(jspProperty.getTrimSpaces()));
         pageInfo.setDeferredSyntaxAllowedAsLiteral(JspUtil.booleanValue(jspProperty.getPoundAllowed()));

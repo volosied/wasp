@@ -465,6 +465,18 @@ class Generator {
             out.println();
         }
 
+                // Implement JspSourceDirectives
+                out.printil("public boolean getErrorOnELNotFound() {");
+                out.pushIndent();
+                if (pageInfo.isErrorOnELNotFound()) {
+                    out.printil("return true;");
+                } else {
+                    out.printil("return false;");
+                }
+                out.popIndent();
+                out.printil("}");
+                out.println();
+
         generateTagHandlerInit();
         generateTagHandlerDestroy();
     }
@@ -494,6 +506,7 @@ class Generator {
             out.println(",");
             out.printin("                 SingleThreadModel");
         }
+        out.printin(", org.glassfish.wasp.runtime.JspSourceDirectives");
         out.println(" {");
         out.pushIndent();
 

@@ -23,6 +23,7 @@ public class JspProperty {
 
     private String isXml;
     private String elIgnored;
+    private String errorOnELNotFound;
     private String scriptingInvalid;
     private String pageEncoding;
     private String trimSpaces;
@@ -33,11 +34,12 @@ public class JspProperty {
     private String defaultContentType;
     private String errorOnUndeclaredNamespace;
 
-    public JspProperty(String isXml, String elIgnored, String scriptingInvalid, String trimSpaces, String poundAllowed, String pageEncoding,
+    public JspProperty(String isXml, String elIgnored, String errorOnELNotFound, String scriptingInvalid, String trimSpaces, String poundAllowed, String pageEncoding,
             List<String> includePrelude, List<String> includeCoda, String defaultContentType, String buffer, String errorOnUndeclaredNamespace) {
 
         this.isXml = isXml;
         this.elIgnored = elIgnored;
+        this.errorOnELNotFound = errorOnELNotFound;
         this.scriptingInvalid = scriptingInvalid;
         this.trimSpaces = trimSpaces;
         this.poundAllowed = poundAllowed;
@@ -55,6 +57,10 @@ public class JspProperty {
 
     public String isELIgnored() {
         return elIgnored;
+    }
+
+    public String getErrorOnELNotFound() {
+        return errorOnELNotFound;
     }
 
     public String isScriptingInvalid() {

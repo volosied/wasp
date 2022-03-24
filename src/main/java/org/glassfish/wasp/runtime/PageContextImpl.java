@@ -62,6 +62,7 @@ import jakarta.servlet.jsp.JspWriter;
 import jakarta.servlet.jsp.PageContext;
 import jakarta.servlet.jsp.el.ExpressionEvaluator;
 import jakarta.servlet.jsp.el.ImplicitObjectELResolver;
+import jakarta.servlet.jsp.el.NotFoundELResolver;
 import jakarta.servlet.jsp.el.ScopedAttributeELResolver;
 import jakarta.servlet.jsp.el.VariableResolver;
 import jakarta.servlet.jsp.tagext.BodyContent;
@@ -676,6 +677,11 @@ public class PageContextImpl extends PageContext {
             elContext = getJspApplicationContext().createELContext(getELResolver());
             elContext.putContext(jakarta.servlet.jsp.JspContext.class, this);
             ((ELContextImpl) elContext).setVariableMapper(new VariableMapperImpl());
+            if (servlet instanceof JspSourceDirectives) {
+                if (((JspSourceDirectives) servlet).getErrorOnELNotFound()) {
+                    elContext.putContext(NotFoundELResolver.class, Boolean.TRUE);
+                }
+            }
         }
         return elContext;
     }

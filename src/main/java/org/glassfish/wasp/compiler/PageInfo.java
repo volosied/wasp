@@ -74,6 +74,8 @@ public class PageInfo {
     private boolean scriptingInvalid = false;
     private String isELIgnoredValue;
     private boolean isELIgnored = false;
+    private String errorOnELNotFoundValue;
+    private boolean errorOnELNotFound = false;
     private String omitXmlDecl = null;
     private String doctypeName = null;
     private String doctypePublic = null;
@@ -638,6 +640,39 @@ public class PageInfo {
 
     public boolean isELIgnored() {
         return isELIgnored;
+    }
+
+
+    /*
+     * ErrorOnELNotFound
+     */
+    public void setErrorOnELNotFound(String value, Node n, ErrorDispatcher err, boolean pagedir) throws WaspException {
+
+        if ("true".equalsIgnoreCase(value)) {
+            isELIgnored = true;
+        } else if ("false".equalsIgnoreCase(value)) {
+            isELIgnored = false;
+        } else {
+            if (pagedir) {
+                err.jspError(n, "jsp.error.page.invalid.errorOnELNotFound");
+            } else {
+                err.jspError(n, "jsp.error.tag.invalid.errorOnELNotFound");
+            }
+        }
+
+        isELIgnoredValue = value;
+    }
+
+    public void setErrorOnELNotFound(boolean s) {
+        errorOnELNotFound = s;
+    }
+
+    public String getErrorOnELNotFound() {
+        return errorOnELNotFoundValue;
+    }
+
+    public boolean isErrorOnELNotFound() {
+        return errorOnELNotFound;
     }
 
     /*
