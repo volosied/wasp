@@ -3101,6 +3101,7 @@ class Generator {
         out.println(className);
         out.printil("    extends jakarta.servlet.jsp.tagext.SimpleTagSupport");
         out.printin("    implements org.glassfish.wasp.runtime.JspSourceDependent");
+        out.printin(",   org.glassfish.wasp.runtime.JspSourceDirectives");
         if (tagInfo.hasDynamicAttributes()) {
             out.println(",");
             out.printin("               jakarta.servlet.jsp.tagext.DynamicAttributes");

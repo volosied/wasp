@@ -649,9 +649,9 @@ public class PageInfo {
     public void setErrorOnELNotFound(String value, Node n, ErrorDispatcher err, boolean pagedir) throws WaspException {
 
         if ("true".equalsIgnoreCase(value)) {
-            isELIgnored = true;
+            errorOnELNotFound = true;
         } else if ("false".equalsIgnoreCase(value)) {
-            isELIgnored = false;
+            errorOnELNotFound = false;
         } else {
             if (pagedir) {
                 err.jspError(n, "jsp.error.page.invalid.errorOnELNotFound");
